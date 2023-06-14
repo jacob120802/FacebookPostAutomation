@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Facebook Post Automation</title>
+  <style>
+    /* CSS styles */
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: goldenrod;
+      padding-right: 40px;
+      margin-top: 70px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+    }
+
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body style="background-color: black;">
+  <div class="container">
+    <h1>Facebook Post Automation</h1>
+    <form id="postForm" method="POST" action="post.php">
+      <div class="form-group">
+        <label for="access_token">Access Token:</label>
+        <input type="text" id="access_token" name="access_token" required>
+      </div>
+      <div class="form-group">
+        <label for="page_id">Page ID:</label>
+        <input type="text" id="page_id" name="page_id" required>
+      </div>
+      <div class="form-group">
+        <label for="post_message">Post Message:</label>
+        <textarea id="post_message" name="post_message" required></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit">Post on Facebook</button>
+      </div>
+    </form>
+    <div id="result" style="background-color: aqua; margin-left: 20px;"></div>
+  </div>
+
+  <script>
+    // Function to display the result message on the page
+    function displayResult(message, isError = false) {
+      const resultDiv = document.getElementById("result");
+      resultDiv.textContent = message;
+      resultDiv.style.color = isError ? "red" : "green";
+    }
+
+    // Handle form submission
+    document.getElementById("postForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const form = event.target;
+      const accessToken = form.access_token.value;
+      const pageId = form.page_id.value;
+      const message = form.post_message.value;
+
+      // Input validation
+      if (!accessToken || !pageId || !message) {
+        displayResult("Please fill in all fields.", true);
+        return;
+      }
+
+      // Perform the API request and handle the response
+      fetch(form.action, {
+        method: form.method,
+        body: new FormData(form)
+      })
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error("An error occurred.");
+        }
+        return response.text();
+      })
+      .then(function(result) {
+        displayResult(result);
+      })
+      .catch(function(error) {
+        displayResult(error.message, true);
+      });
+    });
+  </script>
+</body>
+</html>
