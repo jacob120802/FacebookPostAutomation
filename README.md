@@ -68,9 +68,6 @@ Contributions to the Facebook Post Automation project are welcome! If you would 
 4. Commit your changes and push them to your forked repository.
 5. Submit a pull request describing your changes.
 
-## License
-The Facebook Post Automation project is licensed under the MIT License.
-
 ## Reference
 For getting the Page ID and Access Token, refer to this video tutorial: [Facebook API Tutorial](https://www.youtube.com/watch?v=CEZhr3c5uWY)
 For creating an access token, refer to the [Facebook Graph API documentation](https://developers.facebook.com/docs/graph-api/get-started)
